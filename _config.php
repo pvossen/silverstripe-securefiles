@@ -8,7 +8,7 @@
  */
 define('MODULE_SECUREFILES_PATH', basename(dirname(__FILE__)));
 
-Director::addRules(50, array(ASSETS_DIR . '/$Action' => 'SecureFileController'));
+Director::addRules(100, array(ASSETS_DIR . '/$Action' => 'SecureFileController'));
 AssetAdmin::require_css(MODULE_SECUREFILES_PATH . '/css/SecureFiles.css');
 // -------------------------------
 
