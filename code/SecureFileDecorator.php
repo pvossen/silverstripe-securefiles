@@ -7,15 +7,11 @@
  * @author Hamish Campbell <hn.campbell@gmail.com>
  * @copyright copyright (c) 2010, Hamish Campbell 
  */
-class SecureFileDecorator extends DataObjectDecorator {
+class SecureFileDecorator extends DataExtension {
 	
-	function extraStatics() {
-		return array(
-			'db' => array(
-				'Secured' => 'Boolean',
-			),
-		);
-	}
+	static $db = array(
+		'Secured' => 'Boolean',
+	);
 	
 	/**
 	 * canViewSecured informs Secure Files whether the user has access to this folder.
@@ -62,7 +58,7 @@ class SecureFileDecorator extends DataObjectDecorator {
 	/**
 	 * Security tab for folders
 	 */
-	public function updateCMSFields(FieldSet &$fields) {
+	public function updateCMSFields(FieldList $fields) {
 		
 		// Only modify folder objects with parent nodes
 		if(!($this->owner instanceof Folder) || !$this->owner->ID)
@@ -72,8 +68,10 @@ class SecureFileDecorator extends DataObjectDecorator {
 		if(!Permission::checkMember(Member::currentUser(), array('ADMIN', 'SECURE_FILE_SETTINGS')))
 			return; 
 			
-		$secureFilesTab = $fields->findOrMakeTab('Root.'._t('SecureFiles.SECUREFILETABNAME', 'Security'));
+		$secureFilesFields = $fields;
+		//$secureFilesTab = $fields->findOrMakeTab('Root.'._t('SecureFiles.SECUREFILETABNAME', 'Security'));
 		$EnableSecurityHolder = new FieldGroup();
+		$EnableSecurityHolder->Name = 'SecureFiles';
 		$EnableSecurityHolder->addExtraClass('securityFieldHolder');
 		if($this->InheritSecured()) {
 			$EnableSecurityField = new ReadonlyField('InheritSecurity', '', _t('SecureFiles.INHERITED', 'This folder is inheriting security settings from a parent folder.'));
@@ -82,9 +80,9 @@ class SecureFileDecorator extends DataObjectDecorator {
 			$EnableSecurityField = new CheckboxField('Secured', _t('SecureFiles.SECUREFOLDER', 'Folder is secure.'));
 		}			
 		
-		$secureFilesTab->push(new HeaderField(_t('SecureFiles.FOLDERSECURITY', 'Folder Security')));
+		$secureFilesFields->push(new HeaderField(_t('SecureFiles.FOLDERSECURITY', 'Folder Security')));
 		$EnableSecurityHolder->push($EnableSecurityField);
-		$secureFilesTab->push($EnableSecurityHolder);
+		$secureFilesFields->push($EnableSecurityHolder);
 	
 	}
 	
