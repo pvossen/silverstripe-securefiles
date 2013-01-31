@@ -1,21 +1,25 @@
 # Secure Files Module
 
+Just an attempt to get a working fork for secure files.
+Work in progress, code is broken and not usable right now ...
+
+#########################################################################################################
 Adds a variety of security controls to your SilverStripe file assets.
 
 ## Maintainer Contact
 
- *  Hamish Campbell <hn.campbell (at) gmail (dot) com>
-
 ## Requirements
 
- *  SilverStripe 2.3,x, 2.4
+ *  SilverStripe 3.0.x
 
 ## Installation Instructions
-
+Don't install
+[
  1.  Extract the module to your website directory.
  2.  Run /dev/build?flush=1
  3.  Optionally apply the additional permission modes listed in _config.php
-   
+]   
+
 ## Usage Overview
 
 Adds a "Security" tab to the Folder options in
