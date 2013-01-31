@@ -127,7 +127,7 @@ class SecureFileDecorator extends DataExtension {
 			'rewrite_engine' => "RewriteEngine On\n" .
 				"RewriteBase " . (BASE_URL ? BASE_URL : "/") . "\n" . 
 				"RewriteCond %{REQUEST_URI} ^(.*)$\n" .
-				"RewriteRule (.*) " . SAPPHIRE_DIR . "/main.php?url=%1&%{QUERY_STRING} [L]"
+				"RewriteRule (.*) " . FRAMEWORK_DIR . "/main.php?url=%1&%{QUERY_STRING} [L]"
 		);
 		$this->owner->extend('modifyAccessRules', $rewriteRules);
 		return implode("\n", $rewriteRules);
